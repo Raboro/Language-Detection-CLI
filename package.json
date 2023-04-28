@@ -2,7 +2,7 @@
   "name": "ld",
   "bin": "src/index.js",
   "version": "1.0.0",
-  "description": "",
+  "description": "CLI tool to get all languages used in your project",
   "main": "src/index.js",
   "scripts": {
     "lint": "npx eslint src"

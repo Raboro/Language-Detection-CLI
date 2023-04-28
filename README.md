@@ -1,5 +1,7 @@
 # Language-Detection-CLI
 
+CLI tool to get all languages used in your project
+
 ## Instruction guide
 1. Install [node.js](https://nodejs.org/en/download/)
 2. Clone code 
