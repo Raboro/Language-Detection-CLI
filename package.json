@@ -1,14 +1,18 @@
 {
-  "name": "language-detection-cli",
+  "name": "ld",
+  "bin": "src/index.js",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "lint": "npx eslint src"
   },
   "keywords": [],
   "author": "Marius Wörfel",
   "license": "MIT",
+  "dependencies": {
+    "yargs": "13.2"
+  },
   "devDependencies": {
     "eslint": "^8.34.0",
     "eslint-config-standard": "^17.0.0",
