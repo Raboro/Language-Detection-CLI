@@ -3,6 +3,7 @@
 'use strict';
 
 const fs = require('fs');
+const yargs = require('yargs');
 
 class Language {
     files = [];
@@ -29,15 +30,20 @@ class Language {
     }
 }
 
-const files = getAllFiles('.', []);
+const options = yargs
+    .usage('Usage: -d <directory> -s <separate>')
+    .option('d', { alias: 'directory', describe: 'directory, which should be detected', type: 'string' })
+    .argv;
+
+const files = getAllFiles(options.d || '.', []);
 const types = [];
 const languages = [];
 
 for (const element of files) {
     const type = element.substring(element.lastIndexOf('.'));
-    if (!isIn(types, type.substring(1))) {
-        languages.push(new Language(type.substring(1)));
-        types.push(type.substring(1));
+    if (!isIn(types, type)) {
+        languages.push(new Language(type));
+        types.push(type);
     }
 }
 
@@ -47,7 +53,7 @@ for (let i = 0; i < types.length; i++) {
     typeCounter.push(0);
     for (let j = 0; j < files.length; j++) {
         const type = files[j].substring(files[j].lastIndexOf('.'));
-        if (types[i] === type.substring(1)) {
+        if (types[i] === type) {
             languages[i].addFile(files[j]);
             allLanguages++;
             typeCounter[i]++;
@@ -57,12 +63,12 @@ for (let i = 0; i < types.length; i++) {
 }
 
 languages.sort((a, b) => {
-    return a.determinePercentWithoutSymbol(allLanguages) + b.determinePercentWithoutSymbol(allLanguages);
-});
+    return a.determinePercentWithoutSymbol(allLanguages) - b.determinePercentWithoutSymbol(allLanguages);
+}).reverse();
 
 for (let i = 0; i < languages.length; i++) {
     const language = languages[i];
-    console.log((i + 1) + ': ' + language.determinePercent(allLanguages) + ': .' + language.type);
+    console.log((i + 1) + ': ' + language.determinePercent(allLanguages) + ': ' + language.type);
 }
 
 function isIn(types, type) {
