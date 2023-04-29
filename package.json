@@ -11,6 +11,7 @@
   "author": "Marius Wörfel",
   "license": "MIT",
   "dependencies": {
+    "fs": "^0.0.1-security",
     "yargs": "13.2"
   },
   "devDependencies": {
